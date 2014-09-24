@@ -8,6 +8,12 @@ html, body {
   margin: 0;
 }
 
+body {
+  background: radial-gradient(#555a5f 0%, #1c1e20 100%);
+  background-position: fixed;
+  background-size: cover;
+}
+
 .container {
   margin-top: 10%;
 	width: 100%;
@@ -32,10 +38,27 @@ html, body {
 
 .devices {
   position: absolute;
-  bottom: 0;
+  margin-top: 10%;
+  width: 100%;
+  text-align: center;
+  top: 0;
   z-index: 2;
-}
 
+
+  select {
+    display: block;
+    height: 34px;
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: #555;
+    background-color: #fff;
+    background-image: none;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin: 0 auto;
+  }
+}
 .local {
   position: fixed;
   top: -50%;
@@ -46,7 +69,6 @@ html, body {
   text-align: center;
 
   video {
-    filter: blur(20px);
     position: absolute;
     top: 0;
     left: 0;

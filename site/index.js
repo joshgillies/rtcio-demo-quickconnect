@@ -46,19 +46,19 @@ function removeRemote(id) {
   peerMedia[id] = undefined;
 }
 
-// capture local media
-var localMedia = (function(opts) {
+var startStream = function startStream(opts) {
   if (!opts)
     opts = {
       constraints: captureConfig('camera microphone:off min:1280x720').toConstraints()
     };
-  var video = media(opts);
+  // capture local media
+  var localMedia =  media(opts);
 
   // render our local media to the target element
-  video.render(local);
+  localMedia.render(local);
 
   // once the local media is captured broadcast the media
-  video.once('capture', function(stream) {
+  localMedia.once('capture', function(stream) {
     // handle the connection stuff
     quickconnect(location.href, {
       room: '/',
@@ -68,33 +68,34 @@ var localMedia = (function(opts) {
     .on('stream:added', renderRemote)
     .on('stream:removed', removeRemote);
   });
-
-  return video;
-})();
-
+};
 
 // get the sources
 MediaStreamTrack.getSources(function(sources) {
-  var devices = append.to(layout, crel('select', { 'class': 'devices'}));
 
   // get the cameras
   var cameras = sources.filter(function(info) {
     return info && info.kind === 'video';
   });
 
+  if (cameras.length === 1)
+    return startStream();
+
+  var devices = append.to(document.body, crel('form', { 'class': 'devices' }, crel('select', crel('option', 'Select an available input device'))));
+
   // create videos
   var videos = cameras.map(function(info, idx) {
     //return media(capture('camera:' + idx).toConstraints({ sources: sources }));
-    return crel('option', 'Camera ' + idx);
-  }).map(append.to(devices));
+    return crel('option', info.label || 'Camera ' + (idx + 1));
+  }).map(append.to(qsa('.devices select')[0]));
 
   onChange(devices, function(err, el) {
     var index = el.target.selectedIndex;
-    localMedia.stop();
-    console.log(localMedia);
-    localMedia({
-      constraints: captureConfig('camera:' + index+ ' microphone:off min:1280x720').toConstraints({ sources: sources })
+    startStream({
+      constraints: captureConfig('camera:' + index + ' microphone:off min:1280x720').toConstraints({ sources: sources })
     });
+    devices.remove();
   });
 });
+
 
