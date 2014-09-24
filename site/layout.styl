@@ -3,22 +3,22 @@
 remote_size = 80%;
 
 html, body {
-    width: 100%;
-    height: 100%;
-    margin: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
 }
 
 .container {
-	font: 12px Arial, Helvetica;
-
+  margin-top: 10%;
 	width: 100%;
 	height: 100%;
 
-	display: flex;	
+	display: flex;
 	flex-direction: column;
 }
 
 .remote {
+  z-index: 2;
 	display: flex;
 	flex-direction: row;
 	justify-content: space-between;
@@ -30,60 +30,43 @@ html, body {
 	}
 }
 
-.local {
-	display: flex;
-	position: absolute;
-	float: left;
-	bottom: 0;
-	height: 15%;
-	width: 100%;
+.devices {
+  position: absolute;
+  bottom: 0;
+  z-index: 2;
+}
 
-	video {
-		margin: 5px 0;
-		height: 100%;
-	}
+.local {
+  position: fixed;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  z-index: 1;
+  text-align: center;
+
+  video {
+    filter: blur(20px);
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    min-width: 50%;
+    min-height: 50%;
+  }
 }
 
 .layout {
+  margin-top: 10%;
 	display: flex;
 	flex-direction: column;
 	flex: 4 4 100%;
 	height: 100%;
 	width: 100%;
-
-	input[type="text"] {
-		font-family: monospace;
-		padding: 5px;
-	}
 }
 
 .layout-hz {
 	flex-direction: row;
-}
-
-.chat {
-	display: none;
-	flex-direction: column;
-	flex: 1 1 30%;
-	padding: 0px 10px;
-	background: #f4f4f4;
-}
-
-.open {
-	display: flex;
-}
-
-.message-list {
-	list-style: none;
-	margin: 0px;
-	padding: 0px;
-
-	> li {
-		color: black;
-		padding: 1px 2px;
-
-		&.local-chat {
-			color: green;
-		}
-	}
 }

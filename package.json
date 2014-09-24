@@ -1,5 +1,5 @@
 {
-  "name": "rtcio-demo-quickconnect",
+  "name": "looking-glass",
   "description": "A super simple example for working with WebRTC",
   "author": "Damon Oehlman <damon.oehlman@nicta.com.au>",
   "private": true,
